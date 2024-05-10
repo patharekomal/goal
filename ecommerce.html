@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E-Commerce Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="homePage">
+    <div data-role="header">
+        <h1>Shop</h1>
+    </div>
+
+    <div data-role="content">
+        <ul data-role="listview" data-inset="true" id="itemList">
+            <li><a href="#" class="addItemButton" data-name="Item 1" data-price="10.99">Item 1 - $10.99</a></li>
+            <li><a href="#" class="addItemButton" data-name="Item 2" data-price="15.99">Item 2 - $15.99</a></li>
+            <li><a href="#" class="addItemButton" data-name="Item 3" data-price="20.99">Item 3 - $20.99</a></li>
+        </ul>
+
+        <a href="#cartPage" data-role="button">View Cart</a>
+    </div>
+</div>
+
+<div data-role="page" id="cartPage">
+    <div data-role="header">
+        <h1>Shopping Cart</h1>
+    </div>
+
+    <div data-role="content">
+        <ul data-role="listview" data-inset="true" id="cartList">
+            <!-- Cart items will be dynamically populated here -->
+        </ul>
+
+        <a href="#homePage" data-role="button" data-icon="arrow-l" data-transition="slide" data-direction="reverse">Back to Shop</a>
+    </div>
+</div>
+
+<script>
+    $(document).on("pagecreate", "#homePage", function() {
+        $(".addItemButton").click(function(event) {
+            event.preventDefault();
+
+            // Get item details
+            var itemName = $(this).data("name");
+            var itemPrice = parseFloat($(this).data("price"));
+
+            // Add item to cart
+            var cartItem = '<li>' +
+                '<h2>' + itemName + '</h2>' +
+                '<p>$' + itemPrice.toFixed(2) + '</p>' +
+                '</li>';
+            $("#cartList").append(cartItem).listview("refresh");
+
+            // Update total price
+            var totalPrice = parseFloat($("#totalPrice").text());
+            $("#totalPrice").text((totalPrice + itemPrice).toFixed(2));
+        });
+    });
+</script>
+
+</body>
+</html>

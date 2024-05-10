@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="feedbackPage">
+    <div data-role="header">
+        <h1>Feedback Form</h1>
+    </div>
+
+    <div data-role="content">
+        <form id="feedbackForm">
+            <label for="feedbackToggle">Satisfied?</label>
+            <select name="feedbackToggle" id="feedbackToggle" data-role="slider">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+
+            <label for="comments">Comments:</label>
+            <textarea cols="40" rows="8" name="comments" id="comments"></textarea>
+
+            <button type="submit" data-theme="b">Submit</button>
+        </form>
+
+        <div id="feedbackResponse" style="display:none;">
+            <h2>Thank you for your feedback!</h2>
+            <p>Your response:</p>
+            <p><strong>Satisfied:</strong> <span id="responseSatisfied"></span></p>
+            <p><strong>Comments:</strong> <span id="responseComments"></span></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).on("pagecreate", "#feedbackPage", function() {
+        $("#feedbackForm").submit(function(event) {
+            event.preventDefault();
+            
+            // Get values from form
+            var satisfied = $("#feedbackToggle").val();
+            var comments = $("#comments").val();
+            
+            // Display response
+            $("#responseSatisfied").text(satisfied);
+            $("#responseComments").text(comments);
+            $("#feedbackResponse").show();
+        });
+    });
+</script>
+
+</body>
+</html>
